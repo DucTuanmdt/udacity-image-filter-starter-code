@@ -37,3 +37,11 @@ export async function deleteLocalFiles(files: Array<string>) {
     fs.unlinkSync(file);
   }
 }
+
+// check if an URL is in valid format: http(s)://(www).[domain]...
+export function isValidUrl(url: string) {
+  // Regular expression pattern for URL validation
+  var urlPattern = /^(?:\w+:)?\/\/([^\s.]+\.\S{2}|localhost[:?\d]*)\S*$/;
+
+  return urlPattern.test(url);
+}
