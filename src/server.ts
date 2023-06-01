@@ -1,6 +1,6 @@
 import express, { Request, Response, NextFunction } from "express";
 import bodyParser from "body-parser";
-import { filterImageFromURL, deleteLocalFiles } from "./util/util";
+import { filterImageFromURL, deleteLocalFiles, isValidUrl } from "./util/util";
 
 (async () => {
   // Init the Express application
@@ -20,6 +20,8 @@ import { filterImageFromURL, deleteLocalFiles } from "./util/util";
 
       if (!url) {
         res.status(400).send("img_url query is required");
+      } else if (!isValidUrl(url)) {
+        res.status(422).send("invalid url format");
       }
 
       try {
@@ -34,6 +36,7 @@ import { filterImageFromURL, deleteLocalFiles } from "./util/util";
           }
         });
       } catch (err) {
+        console.error("Can not handle image: ", err);
         res.status(500).send("Internal server error!");
       }
     }
