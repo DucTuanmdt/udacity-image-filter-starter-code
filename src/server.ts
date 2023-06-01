@@ -14,10 +14,10 @@ import { filterImageFromURL, deleteLocalFiles, isValidUrl } from "./util/util";
 
   // filter image from url
   app.get("/filteredimage", async (req, res, next) => {
-    const url = req.query.img_url;
+    const url = req.query.image_url;
 
     if (!url) {
-      res.status(400).send("img_url query is required");
+      res.status(400).send("image_url query is required");
     } else if (!isValidUrl(url)) {
       res.status(422).send("invalid url format");
     }
